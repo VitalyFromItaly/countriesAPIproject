@@ -20,15 +20,20 @@
             ></path>
           </svg>
         </button>
-        <input v-model="search"
-          type="search" @change="onChange"
+        <input
+          v-model="search"
+          type="search"
+          @change="onChange"
           class="bg-darkBlue  pr-48 rounded-md py-4 pl-16 focus:outline-none"
           placeholder="Search for a country..."
         />
       </form>
-      <div id="filter" class="bg-darkBlue rounded-md px-3 py-4 flex justify-between relative">
-        <button @click="isOpen = !isOpen" class="focus:outline-none flex" >
-        <h1 class="pr-16">Filter by Region</h1>
+      <div
+        id="filter"
+        class="bg-darkBlue rounded-md px-3 py-4 flex justify-between relative"
+      >
+        <button @click="isOpen = !isOpen" class="focus:outline-none flex">
+          <h1 class="pr-16">Filter by Region</h1>
           <svg
             :class="isOpen ? 'block' : 'hidden'"
             aria-hidden="true"
@@ -62,62 +67,91 @@
             ></path>
           </svg>
         </button>
-        <div v-if="!isOpen"
-          class="absolute right-0 w-full z-10 bg-darkBlue text-gray-300 rounded-lg mt-10 shadow-xl overflow-hidden">
-          <a v-for="region in regions" :key="region.id" @click="$emit('chosenRegion', region.name), isOpen=!isOpen"  class="block px-4 py-2 hover:bg-veryDarkBlue" href="#">
-          {{region.name}} <!-- как по нажатию на один из регионов возвращать какой именно регион был выбран -->
+        <div
+          v-if="!isOpen"
+          class="absolute right-0 w-full z-10 bg-darkBlue text-gray-300 rounded-lg mt-10 shadow-xl overflow-hidden"
+        >
+          <a
+            v-for="region in regions"
+            :key="region.id"
+            @click="$emit('chosenRegion', region.name), (isOpen = !isOpen)"
+            class="block px-4 py-2 hover:bg-veryDarkBlue"
+            href="#"
+          >
+            {{ region.name }}
           </a>
         </div>
       </div>
     </div>
-    <CountryCards :countries="countries"  />
+    <CountryCards :countries="countries" @clickedCountry="clickedCountry" />
+    <Info :chosenCountry="chosenCountry" />
   </div>
 </template>
 
 <script>
-import CountryCards from '../components/CountryCards.vue'
+import CountryCards from "../components/CountryCards.vue";
+import Info from "../components/Info.vue";
 export default {
   name: "this-body",
-  props: ['countries'],
+  props: ["countries"],
   components: {
-    CountryCards
-  },
-  methods: {
-    onChange(event) {
-      this.$emit('search', event.target.value)
-      //console.log(event.target.value);
-    }
+    CountryCards,
+    Info
   },
   data() {
     return {
+      chosenCountry: [],
+      borderCountries: [],
+      borders: [],
       isOpen: true,
-      search: '',
+      search: "",
       regions: [
         {
-          id:1,
-        name: 'Africa'
+          id: 1,
+          name: "Africa"
         },
         {
-          id:2,
-        name: 'Americas'
+          id: 2,
+          name: "Americas"
         },
         {
-          id:3,
-        name: 'Asia'
+          id: 3,
+          name: "Asia"
         },
         {
-          id:4,
-        name: 'Europe'
+          id: 4,
+          name: "Europe"
         },
         {
-          id:5,
-        name: 'Oceania'
-        },
+          id: 5,
+          name: "Oceania"
+        }
       ]
+    };
+  },
+  methods: {
+    onChange(event) {
+      this.$emit("search", event.target.value);
+      //console.log(event.target.value);
+    },
+    clickedCountry(name) {
+      this.chosenCountry = name;
+      this.borders = this.chosenCountry.borders;
+      console.log(this.borders);
     }
   },
-
+  watch: {
+    borders: function() {
+      for (let i = 0; i < this.countries.length; i++) {
+        for (let j = 0; j < this.border.length; j++) {
+          if (this.countries[i].cioc === this.borders[j]) {
+            this.borderCountries.push(this.countries[i]);
+          } else {
+            console.log(false);
+          }
+        }
+      }
     }
-
-
+  }
+};
 </script>
