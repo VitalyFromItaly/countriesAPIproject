@@ -144,7 +144,7 @@ export default {
     borders: function() {
       for (let i = 0; i < this.countries.length; i++) {
         for (let j = 0; j < this.border.length; j++) {
-          if (this.countries[i].cioc === this.borders[j]) {
+          if (this.countries[i].cioc === this.borders[j] || this.countries[i].alpha3Code === this.borders[j]) {
             this.borderCountries.push(this.countries[i]);
           } else {
             console.log(false);
