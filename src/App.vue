@@ -30,7 +30,7 @@ export default {
       this.clickedRegion = [];
       this.clickedRegion = this.countries
         .sort(() => Math.random() - 0.5) // shuffle massive's objects
-        .filter(e => e.region == region); // searching for clicked region
+        .filter(e => e.region == region); //searching for clicked region
       //.slice(0, 8);
       console.log(region);
       console.log(this.clickedRegion);
