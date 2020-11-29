@@ -50,7 +50,6 @@
               >
             </p>
           </div>
-         <!--
             <div>
               <p class="py-1 text-white bolder">
                 Capital:<span class="text-gray-400">
@@ -74,10 +73,13 @@
                 >
               </p>
             </div>
-         </!-->
         </div>
-        <h1 class="py-20 text-xl text-white">Border Countries:</h1>
+        <div class="flex items-center">
+          <h1 class="py-20 text-xl text-white">Border Countries:</h1>
+          <a href="#" class="bg-darkBlue py-2 rounded-md px-3 mx-1" v-for="item in borderCountries" :key="item.index">{{item.name}}</a>
+        </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -85,7 +87,7 @@
 <script>
 export default {
   name: "info",
-  props: ["chosenCountry"],
+  props: ["chosenCountry", 'borderCountries'],
   data() {
     return {
     };

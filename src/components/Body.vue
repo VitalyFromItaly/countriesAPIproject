@@ -30,8 +30,7 @@
       </form>
       <div
         id="filter"
-        class="bg-darkBlue rounded-md px-3 py-4 flex justify-between relative"
-      >
+        class="bg-darkBlue rounded-md px-3 py-4 flex justify-between relative">
         <button @click="isOpen = !isOpen" class="focus:outline-none flex">
           <h1 class="pr-16">Filter by Region</h1>
           <svg
@@ -69,22 +68,20 @@
         </button>
         <div
           v-if="!isOpen"
-          class="absolute right-0 w-full z-10 bg-darkBlue text-gray-300 rounded-lg mt-10 shadow-xl overflow-hidden"
-        >
+          class="absolute right-0 w-full z-10 bg-darkBlue text-gray-300 rounded-lg mt-10 shadow-xl overflow-hidden">
           <a
             v-for="region in regions"
             :key="region.id"
             @click="$emit('chosenRegion', region.name), (isOpen = !isOpen)"
             class="block px-4 py-2 hover:bg-veryDarkBlue"
-            href="#"
-          >
+            href="#">
             {{ region.name }}
           </a>
         </div>
       </div>
     </div>
     <CountryCards :countries="countries" @clickedCountry="clickedCountry" />
-    <Info :chosenCountry="chosenCountry" />
+    <Info :borderCountries="borderCountries" :chosenCountry="chosenCountry" />
   </div>
 </template>
 
@@ -134,20 +131,24 @@ export default {
       this.$emit("search", event.target.value);
       //console.log(event.target.value);
     },
-    clickedCountry(name) {
-      this.chosenCountry = name;
-      this.borders = this.chosenCountry.borders;
+    clickedCountry(countryObj) {
+      this.borderCountries = [];
+      this.chosenCountry = countryObj;
+      this.borders = this.chosenCountry.borders
+        ? this.chosenCountry.borders.slice(0,3)
+        : [];
       console.log(this.borders);
     }
   },
   watch: {
     borders: function() {
+      //this.borderCountries= this.countries.filter(function(item) {
+      //  return this.borders.indexOf(item.cioc) === 1;
+      //});
       for (let i = 0; i < this.countries.length; i++) {
-        for (let j = 0; j < this.border.length; j++) {
+        for (let j = 0; j < this.borders.length; j++) {
           if (this.countries[i].cioc === this.borders[j] || this.countries[i].alpha3Code === this.borders[j]) {
             this.borderCountries.push(this.countries[i]);
-          } else {
-            console.log(false);
           }
         }
       }
