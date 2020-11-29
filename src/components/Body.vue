@@ -137,7 +137,6 @@ export default {
       this.borders = this.chosenCountry.borders
         ? this.chosenCountry.borders.slice(0,3)
         : [];
-      console.log(this.borders);
     }
   },
   watch: {
