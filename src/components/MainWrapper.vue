@@ -41,7 +41,6 @@ export default {
       console.log(countryName);
     }
   },
-
   mounted: function() {
     axios
       .get("https://restcountries.eu/rest/v2/all")
@@ -52,7 +51,7 @@ export default {
   },
   computed: {
     sortedCountries() {
-      if (this.clickedRegion.length == 0) {
+      if (this.clickedRegion.length === 0) {
         return this.countries;
       } else {
         return this.clickedRegion;
