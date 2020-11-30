@@ -22,54 +22,54 @@
       <span> Back</span>
     </a>
     <div class="grid grid-cols-2 gap-x-20 items-center">
-      <img :src="chosenCountry.flag" alt="" class=" w-auto" />
+      <img :src="chosenCountry1.flag" alt="" class=" w-auto" />
       <div id="text-info">
         <h1 class="bolder text-2xl text-white py-5">
-          {{ chosenCountry.name }}
+          {{ chosenCountry1.name }}
         </h1>
         <div class="grid grid-cols-2 gap-x-full items-center">
           <div>
             <p class="py-1 text-white bolder">
               Native Name:<span class="text-gray-400">
-                {{ chosenCountry.nativeName }}</span
+                {{ chosenCountry1.nativeName }}</span
               >
             </p>
             <p class="py-1 text-white bolder">
               Population:<span class="text-gray-400">
-                {{ chosenCountry.population }}</span
+                {{ chosenCountry1.population }}</span
               >
             </p>
             <p class="py-1 text-white bolder">
               Region:<span class="text-gray-400">
-                {{ chosenCountry.region }}</span
+                {{ chosenCountry1.region }}</span
               >
             </p>
             <p class="py-1 text-white bolder">
               Sub Region:<span class="text-gray-400">
-                {{ chosenCountry.subregion }}</span
+                {{ chosenCountry1.subregion }}</span
               >
             </p>
           </div>
             <div>
               <p class="py-1 text-white bolder">
                 Capital:<span class="text-gray-400">
-                  {{ chosenCountry.capital }}</span
+                  {{ chosenCountry1.capital }}</span
                 >
               </p>
               <p class="py-1 text-white bolder">
                 Top Level Domain:<span class="text-gray-400">
-                  {{ chosenCountry.topLevelDomain[0] }}</span
+                  {{ chosenCountry1.topLevelDomain[0] }}</span
                 >
               </p>
               <p class="py-1 text-white bolder">
                 Currencies:<span class="text-gray-400">
-                  {{ chosenCountry.currencies[0].name }},
-                  {{ chosenCountry.currencies[0].symbol }}</span
+                  {{ chosenCountry1.currencies[0].name }},
+                  {{ chosenCountry1.currencies[0].symbol }}</span
                 >
               </p>
               <p class="py-1 text-white bolder">
                 Languages:<span class="text-gray-400">
-                  {{ chosenCountry.languages[0].name }}</span
+                  {{ chosenCountry1.languages[0].name }}</span
                 >
               </p>
             </div>
@@ -87,7 +87,7 @@
 <script>
 export default {
   name: "info",
-  props: ["chosenCountry", 'borderCountries'],
+  props: ["chosenCountry1", 'borderCountries'],
   data() {
     return {
     };

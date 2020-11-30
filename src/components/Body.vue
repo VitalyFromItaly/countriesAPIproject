@@ -1,5 +1,5 @@
 <template>
-  <div id="this-body" class="px-20 text-sm text-gray-400">
+  <div id="this-body" class="text-sm ">
     <!-- input and filter section below-->
     <div class=" flex justify-between justify-items-auto py-5 ">
       <form method="get" class="relative">
@@ -81,25 +81,23 @@
       </div>
     </div>
     <CountryCards :countries="countries" @clickedCountry="clickedCountry" />
-    <Info :borderCountries="borderCountries" :chosenCountry="chosenCountry" />
   </div>
 </template>
-
 <script>
 import CountryCards from "../components/CountryCards.vue";
-import Info from "../components/Info.vue";
+import {bus} from "../main";
 export default {
   name: "this-body",
   props: ["countries"],
   components: {
     CountryCards,
-    Info
+
   },
   data() {
     return {
       chosenCountry: [],
-      borderCountries: [],
-      borders: [],
+      //borderCountries: [],
+      //borders: [],
       isOpen: true,
       search: "",
       regions: [
@@ -132,26 +130,9 @@ export default {
       //console.log(event.target.value);
     },
     clickedCountry(countryObj) {
-      this.borderCountries = [];
-      this.chosenCountry = countryObj;
-      this.borders = this.chosenCountry.borders
-        ? this.chosenCountry.borders.slice(0,3)
-        : [];
+        bus.$emit("chosenCountry", countryObj)
     }
   },
-  watch: {
-    borders: function() {
-      //this.borderCountries= this.countries.filter(function(item) {
-      //  return this.borders.indexOf(item.cioc) === 1;
-      //});
-      for (let i = 0; i < this.countries.length; i++) {
-        for (let j = 0; j < this.borders.length; j++) {
-          if (this.countries[i].cioc === this.borders[j] || this.countries[i].alpha3Code === this.borders[j]) {
-            this.borderCountries.push(this.countries[i]);
-          }
-        }
-      }
-    }
-  }
+
 };
 </script>
