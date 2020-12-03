@@ -1,27 +1,28 @@
 <template>
-  <div id="info">
-    <a
-      href="#app"
-      class=" w-32 shadow-2xl text-md bg-darkBlue px-8 py-3 my-10 font-light text-white flex items-center rounded-md hover:"
+  <div id="info" class="px-10">
+    <router-link :to="{name: 'home'}"
+      class=" w-32 shadow-2xl text-md bg-darkBlue px-8 py-3 my-10 font-light text-white flex items-center rounded-md"
     >
-      <svg
-        aria-hidden="true"
-        focusable="false"
-        data-prefix="fas"
-        data-icon="arrow-left"
-        class="svg-inline--fa fa-arrow-left w-5 h-5 mr-3 "
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 448 512"
-      >
-        <path
-          fill="currentColor"
-          d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
-        ></path>
-      </svg>
-      <span> Back</span>
-    </a>
-    <div class="grid grid-cols-2 gap-x-20 items-center">
+      <div @click="$emit('cleanInfoPage')" class="flex">
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="arrow-left"
+          class="svg-inline--fa fa-arrow-left w-5 h-5 mr-3 "
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+        >
+          <path
+            fill="currentColor"
+            d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+          ></path>
+        </svg>
+        <span> Back</span>
+      </div>
+    </router-link>
+    <div v-if="chosenCountry1 !=0" class="grid grid-cols-2 gap-x-20 items-center pb-64">
       <img :src="chosenCountry1.flag" alt="" class=" w-auto" />
       <div id="text-info">
         <h1 class="bolder text-2xl text-white py-5">
@@ -76,9 +77,17 @@
         </div>
         <div class="flex items-center">
           <h1 class="py-20 text-xl text-white">Border Countries:</h1>
-          <a href="#" class="bg-darkBlue py-2 rounded-md px-3 mx-1" v-for="item in borderCountries" :key="item.index">{{item.name}}</a>
+          <div href="#" class="bg-darkBlue py-2 rounded-md px-3 mx-1 cursor-pointer"
+          @click="$emit('clikedBorderCountry', borderCountry)" v-for="borderCountry in borderCountries.slice(0,3)" :key="borderCountry.index">
+          {{borderCountry.name}}
+          </div>
         </div>
       </div>
+
+    </div>
+    <div v-else class="text-center pb-64">
+    <h1 class="p-20 text-3xl">No country was chosen, or written value was not corrent</h1>
+    <h1 class="p-16 text-3xl">Please go back to the main page to explore the world</h1>
 
     </div>
   </div>
@@ -92,8 +101,9 @@ export default {
     return {
     };
   },
+  methods: {
+  },
   components: {},
-  computed: {
-  }
+  computed: {}
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div id="this-body" class="text-sm ">
+  <div id="this-body" class="text-sm px-10 ">
     <!-- input and filter section below-->
     <div class=" flex justify-between justify-items-auto py-5 ">
       <form method="get" class="relative">
@@ -127,6 +127,7 @@ export default {
   methods: {
     onChange(event) {
       this.$emit("search", event.target.value);
+      this.search = ''
       //console.log(event.target.value);
     },
     clickedCountry(countryObj) {

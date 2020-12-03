@@ -1,27 +1,44 @@
 <template>
-  <div id="main-wrapper" class="  bg-veryDarkBlue text-gray-400 px-10">
+  <div id="main-wrapper" class="bg-veryDarkBlue text-gray-400 ">
     <Header />
-    <Body
-      :countries="sortedCountries"
-      class=""
-      @chosenRegion="chosenRegion"
-      @search="search"
-    />
-    <Info :borderCountries="borderCountries" :chosenCountry1="chosenCountry1" />
+    <keep-alive>
+      <router-view
+        :countries="sortedCountries"
+        :borderCountries="borderCountries"
+        :chosenCountry1="chosenCountry1"
+        @chosenRegion="chosenRegion"
+        @search="search"
+        @clikedBorderCountry="clikedBorderCountry"
+        @cleanInfoPage="cleanInfoPage"
+      />
+      <!--
+      :chosenCountry1="chosenCountry1"  came from body 133 line to updated hook, which came from CountryCards line 4.
+       -->
+      <!--
+        <Body
+          :countries="sortedCountries"
+          class=""
+          @chosenRegion="chosenRegion"
+          @search="search"
+        />
+        <Info :borderCountries="borderCountries" :chosenCountry1="chosenCountry1" />
+      </ -->
+    </keep-alive>
   </div>
 </template>
 <script>
 import Header from "../components/Header.vue";
-import Body from "../components/Body.vue";
-import Info from "../components/Info.vue";
-import {bus} from "../main";
+//import Body from "../components/Body.vue";
+//import Info from "../components/Info.vue";
+import { bus } from "../main";
 import axios from "axios";
+import router from "../router/router";
 export default {
   name: "main-wrapper",
   components: {
-    Header,
-    Body,
-    Info
+    Header
+    //Body,
+    //Info
   },
   data() {
     return {
@@ -38,31 +55,27 @@ export default {
       this.clickedRegion = this.countries
         .sort(() => Math.random() - 0.5) // shuffle massive's objects
         .filter(e => e.region == region); //searching for clicked region
-      //.slice(0, 8);
-      console.log(region);
-      console.log(this.clickedRegion);
     },
     search(countryName) {
-      countryName = this.countries.filter(e => e.name == countryName);
-      console.log(countryName);
+      this.chosenCountry1 = [];
+      this.borders = [];
+      countryName.toLowerCase();
+     this.chosenCountry1 = this.countries.find(e => e.name.toLowerCase() == countryName);
+     this.borders = this.chosenCountry1.borders;
+      router.push("info").catch(error => {
+        if (error.name != "NavigationDuplicated") {
+          throw error }
+      });
     },
-    //chosenCountry(countryObj) {
-    //   this.borderCountries = [];
-    //  this.chosenCountry1 = countryObj;
-    //  this.borders = this.chosenCountry1.borders
-    //    ? this.chosenCountry1.borders.slice(0,3)
-    //    : [];
-    //}
-  },
-  updated() {
-    bus.$on('chosenCountry',(data) => {
-     console.log(data);
-     this.borderCountries = [];
-      this.chosenCountry1 = data;
-      this.borders = this.chosenCountry1.borders
-        ? this.chosenCountry1.borders.slice(0,3)
-        : [];
-    })
+    clikedBorderCountry(borderCountry) {
+      this.chosenCountry1 = borderCountry;
+      this.borders = borderCountry.borders;
+      this.borderCountries = [];
+    },
+    cleanInfoPage() {
+      this.chosenCountry1 = [];
+      this.borderCountries =[]
+    }
   },
   mounted: function() {
     axios
@@ -81,6 +94,20 @@ export default {
       }
     }
   },
+   updated() {
+    bus.$on("chosenCountry", data => { // from CountryCard via Body
+      // console.log(data);
+      this.borderCountries = [];
+      this.chosenCountry1 = data;
+      this.borders = this.chosenCountry1.borders
+        ? this.chosenCountry1.borders
+        : [];
+      router.push("info").catch(error => {
+        if (error.name != "NavigationDuplicated") {
+          throw error; }
+      });
+    });
+  },
   watch: {
     borders: function() {
       //this.borderCountries= this.countries.filter(function(item) {
@@ -88,12 +115,15 @@ export default {
       //});
       for (let i = 0; i < this.countries.length; i++) {
         for (let j = 0; j < this.borders.length; j++) {
-          if (this.countries[i].cioc === this.borders[j] || this.countries[i].alpha3Code === this.borders[j]) {
+          if (
+            this.countries[i].cioc === this.borders[j] ||
+            this.countries[i].alpha3Code === this.borders[j]
+          ) {
             this.borderCountries.push(this.countries[i]);
           }
         }
       }
-    }
+    },
   }
 };
 </script>
