@@ -6,13 +6,15 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "build:css": "tailwind build style.css -o css/style.css"
+        "rebuildCss": "tailwind build style.css -o css/style.css"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
+        "autoprefixer": "^10.0.4",
         "axios": "^0.21.0",
         "core-js": "^3.6.5",
-        "tailwindcss": "^1.9.6",
+        "postcss": "^8.1.13",
+        "tailwindcss": "^2.0.1",
         "vue": "^2.6.11",
         "vue-router": "^3.4.9"
     },

@@ -1,8 +1,8 @@
 <template>
-  <div id="this-body" class="text-sm px-10 ">
+  <div id="this-body" class="text-sm px-10 sm:px-20 ">
     <!-- input and filter section below-->
-    <div class=" flex justify-between justify-items-auto py-5 ">
-      <form method="get" class="relative">
+    <div class="md:flex md:justify-between md:justify-items-auto py-5 ">
+      <form method="get" class="relative mb-5 md:mb-0  md:w-2/5">
         <button type="submit" class="absolute inset-y-0 pl-5">
           <svg
             aria-hidden="true"
@@ -24,15 +24,14 @@
           v-model="search"
           type="search"
           @change="onChange"
-          class="bg-darkBlue  pr-48 rounded-md py-4 pl-16 focus:outline-none"
+          class="bg-veryLightGray shadow-lg dark:bg-darkBlue w-full md:pr-0 lg:pr-20 rounded-md py-4 pl-16 focus:outline-none"
           placeholder="Search for a country..."
         />
       </form>
-      <div
-        id="filter"
-        class="bg-darkBlue rounded-md px-3 py-4 flex justify-between relative">
+      <div id="filter"
+        class="bg-veryLightGray whitespace-nowrap shadow-lg w-1/2 md:w-auto dark:bg-darkBlue rounded-md  px-3 py-4 flex justify-between relative">
         <button @click="isOpen = !isOpen" class="focus:outline-none flex">
-          <h1 class="pr-16">Filter by Region</h1>
+          <h1 class=" pr-5 md:pr-16">Filter by Region</h1>
           <svg
             :class="isOpen ? 'block' : 'hidden'"
             aria-hidden="true"
@@ -68,12 +67,12 @@
         </button>
         <div
           v-if="!isOpen"
-          class="absolute right-0 w-full z-10 bg-darkBlue text-gray-300 rounded-lg mt-10 shadow-xl overflow-hidden">
+          class="absolute right-0 w-full z-10 bg-veryLightGray dark:bg-darkBlue text-gray-500 dark:text-gray-300 rounded-lg mt-10 shadow-xl overflow-hidden">
           <a
             v-for="region in regions"
             :key="region.id"
             @click="$emit('chosenRegion', region.name), (isOpen = !isOpen)"
-            class="block px-4 py-2 hover:bg-veryDarkBlue"
+            class="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-veryDarkBlue"
             href="#">
             {{ region.name }}
           </a>

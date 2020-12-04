@@ -1,6 +1,6 @@
 <template>
-  <div id="main-wrapper" class="bg-veryDarkBlue text-gray-400 ">
-    <Header />
+  <div id="main-wrapper" class="bg-white text-gray-700 dark:bg-veryDarkBlue dark:text-gray-400 ">
+    <Header @switchMode="switchMode" />
     <keep-alive>
       <router-view
         :countries="sortedCountries"
@@ -10,6 +10,7 @@
         @search="search"
         @clikedBorderCountry="clikedBorderCountry"
         @cleanInfoPage="cleanInfoPage"
+
       />
       <!--
       :chosenCountry1="chosenCountry1"  came from body 133 line to updated hook, which came from CountryCards line 4.
@@ -47,6 +48,7 @@ export default {
       chosenCountry1: [],
       borderCountries: [],
       borders: [],
+      toggleDarkMode: true,
     };
   },
   methods: {
@@ -69,13 +71,24 @@ export default {
     },
     clikedBorderCountry(borderCountry) {
       this.chosenCountry1 = borderCountry;
-      this.borders = borderCountry.borders;
+      this.borders = borderCountry.borders.sort(() => Math.random() - 0.5);
       this.borderCountries = [];
     },
     cleanInfoPage() {
       this.chosenCountry1 = [];
-      this.borderCountries =[]
-    }
+      this.borderCountries =[];
+     this.borders = [];
+    },
+   switchMode() {
+      this.toggleDarkMode = !this.toggleDarkMode;
+     if (this.toggleDarkMode == true) {
+       document.querySelector('html').classList.add('dark')
+     } else if (this.toggleDarkMode ==false) {
+       document.querySelector('html').classList.remove('dark')
+     }
+    console.log(this.toggleDarkMode);
+
+   }
   },
   mounted: function() {
     axios
@@ -84,6 +97,11 @@ export default {
         response =>
           (this.countries = response.data.sort(() => Math.random() - 0.5))
       );
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.querySelector('html').classList.add('dark')
+      } else {
+         document.querySelector('html').classList.remove('dark')
+       }
   },
   computed: {
     sortedCountries() {

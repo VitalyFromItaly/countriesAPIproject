@@ -4,6 +4,7 @@ module.exports = {
         // purgeLayersByDefault: true,
     },
     purge: [],
+    darkMode: "class",
     theme: {
         extend: {
             backgroundColor: {
@@ -11,7 +12,9 @@ module.exports = {
                 'darkBlue': 'hsl(209, 23%, 22%)', //Dark Mode Elements
                 'veryDarkBlue': 'hsl(207, 26%, 17%)', //Dark Mode Background
                 //for light background theme
-                'darkGray': 'hsl(0, 0%, 52%)' // for light theme input
+                'darkGray': 'hsl(0, 0%, 52%)', // for light theme input
+                'veryLightGray': 'hsl(0, 0%, 98%)' // for light theme
+
 
 
             },
