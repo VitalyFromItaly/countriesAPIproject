@@ -94,6 +94,7 @@
 </template>
 
 <script>
+//import axios from "axios";
 export default {
   name: "info",
   props: ["chosenCountry1", 'borderCountries'],

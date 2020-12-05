@@ -71,7 +71,7 @@ export default {
     },
     clikedBorderCountry(borderCountry) {
       this.chosenCountry1 = borderCountry;
-      this.borders = borderCountry.borders.sort(() => Math.random() - 0.5);
+      this.borders = borderCountry.borders;
       this.borderCountries = [];
     },
     cleanInfoPage() {
