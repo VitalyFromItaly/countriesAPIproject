@@ -87,7 +87,6 @@ export default {
        document.querySelector('html').classList.remove('dark')
      }
     console.log(this.toggleDarkMode);
-
    }
   },
   mounted: function() {

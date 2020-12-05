@@ -17,7 +17,6 @@ let router = new Router({
             component: Info,
             props: true
         },
-
     ],
 })
 export default router;
