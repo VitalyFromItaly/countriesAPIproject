@@ -1,6 +1,6 @@
 <template>
   <div id="top">
-    <div class="bg-veryLightGray dark:bg-darkBlue flex px-10 sm:px-20 text-gray-700 dark:text-gray-300 items-center justify-between py-4 shadow-md">
+    <div class=" bg-veryLightGray dark:bg-darkBlue flex px-5 sm:px-10 md:px-20 text-gray-700 dark:text-gray-300 items-center justify-between py-4 shadow-xl">
     <h1 class="text-md sm:text-2xl bolder"> Where in the World?</h1>
       <button @click="$emit('switchMode')" class="flex space-x-3 items-center hover:bg-gray-200 dark:hover:bg-veryDarkBlue rounded-3xl pl-3 py-2 focus:outline-none">
         <svg
