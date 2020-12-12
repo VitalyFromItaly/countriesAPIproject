@@ -5,7 +5,7 @@
       <div id="filter"
         class="bg-veryLightGray whitespace-nowrap shadow-lg w-1/2 sm:w-1/3 md:w-auto dark:bg-darkBlue rounded-md  px-3 py-4 flex justify-between relative">
         <button @click="isOpen = !isOpen" class="focus:outline-none flex">
-          <h1 class=" pr-2 sm:pr-5 md:pr-16">Filter by Region</h1>
+          <h1 class=" pr-8 md:pr-16">Filter by Region</h1>
           <svg
             :class="isOpen ? 'block' : 'hidden'"
             aria-hidden="true"
@@ -68,7 +68,6 @@ export default {
   },
   data() {
     return {
-      chosenCountry: [],
       isOpen: true,
       regions: [
         {

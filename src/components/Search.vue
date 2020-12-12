@@ -26,7 +26,7 @@
         v-model="search"
         type="search"
         @keydown.enter.prevent="onChange"
-        class="bg-veryLightGray shadow-lg dark:bg-darkBlue w-full md:pr-0 lg:pr-32 rounded-md py-4 pl-16 focus:outline-none"
+        class="bg-veryLightGray shadow-lg dark:bg-darkBlue w-full md:pr-10 lg:pr-32 rounded-md py-4 pl-16 focus:outline-none"
         placeholder="Search for a country.."
       />
     </form>
@@ -60,17 +60,10 @@ export default {
         })
         .catch(err => {
           if (err.response.status === 404) {
-            console.log(err);
             this.$router.push({ name: "not-found" });
           }
         });
-      console.log(this.searchedCountry);
-
-      //console.log(event.target.value);
-      //this.$emit("search", event.target.value);
       this.search = "";
-
-      //console.log(event.target.value);
     }
   },
   deactivated() {

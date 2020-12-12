@@ -1,11 +1,10 @@
 <template>
   <div id="main-wrapper" class="bg-white text-gray-700 dark:bg-veryDarkBlue dark:text-gray-400 flex flex-col h-screen justify-between ">
-    <Header @switchMode="switchMode"  />
+    <Header />
     <keep-alive>
       <router-view class="mb-auto bg-white text-gray-700 dark:bg-veryDarkBlue dark:text-gray-400"
         :countries="sortedCountries"
         @chosenRegion="chosenRegion"
-
       />
     </keep-alive>
     <Footer />
@@ -25,7 +24,6 @@ export default {
     return {
       countries: [],
       clickedRegion: [],
-      toggleDarkMode: true,
     };
   },
   methods: {
@@ -35,29 +33,14 @@ export default {
         .sort(() => Math.random() - 0.5) // shuffle massive's objects
         .filter(e => e.region == region); //searching for clicked region
     },
-   switchMode() {
-      this.toggleDarkMode = !this.toggleDarkMode;
-     if (this.toggleDarkMode == true) {
-       document.querySelector('html').classList.add('dark')
-       localStorage.theme = 'dark'
-     } else if (this.toggleDarkMode ==false) {
-       document.querySelector('html').classList.remove('dark')
-       localStorage.theme = 'light'
-     }
-   }
   },
   mounted: function() {
     axios
-      .get("https://restcountries.eu/rest/v2/all")
+      .get("https://restcountries.eu/rest/v2/all") //get all data of countries from API
       .then(
         response =>
-          (this.countries = response.data.sort(() => Math.random() - 0.5))
+          (this.countries = response.data.sort(() => Math.random() - 0.5)) // save the data in this.countries
       );
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.querySelector('html').classList.add('dark')
-      } else {
-         document.querySelector('html').classList.remove('dark')
-       }
   },
   computed: {
     sortedCountries() {
