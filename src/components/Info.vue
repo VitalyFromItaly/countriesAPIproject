@@ -3,13 +3,19 @@
     <Back />
     <div
       v-if="country"
-      class="md:grid md:grid-cols-2 md:gap-x-20  items-start pb-5"
+      class="md:grid md:grid-cols-2 md:gap-x-20 items-start pb-5"
     >
       <img :src="country.flag" alt="" class=" w-auto shadow-lg" />
       <div id="text-info">
-        <h1 class="bolder text-2xl dark:text-white py-5 md:py-0 md:pb-5">
-          {{ country.name }}
-        </h1>
+        <div class="flex justify-between items-start">
+          <h1 class="bolder text-2xl dark:text-white py-5 md:py-0 md:pb-5">
+            {{ country.name }}
+          </h1>
+          <button @click="isModalOpen = !isModalOpen"
+          class="text-xl dark:text-white px-4 py-1 hover:bg-gray-300 bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none rounded-lg">
+          More info
+          </button>
+        </div>
         <div
           class="grid grid-cols-2 gap-x-full items-center text-gray-700 dark:text-white"
         >
@@ -61,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div class="sm:flex sm:items-center  text-sm sm:text-xl pb-32 ">
+    <div class="sm:flex sm:items-center  text-sm sm:text-xl pb-32">
       <h1 class="sm:block sm:py-10 text-center">Border Countries:</h1>
       <p
         class="bg-veryLightGray shadow-md dark:bg-darkBlue py-2 rounded-md px-2 md:px-3 my-3 sm:my-0 mx-1 cursor-pointer text-gray-800 dark:text-gray-200"
@@ -80,21 +86,53 @@
         {{ sortedCountryBorder.name }}
       </p>
     </div>
+    <Modal @close="isModalOpen=!isModalOpen" :isModalOpen="isModalOpen" v-if="isModalOpen && loaded">
+       <template v-slot:header>
+       Extra info about {{country.name}}
+       </template>
+       <template v-slot:body>
+       <div class="grid grid-cols-2 md:gap-x-20 items-baseline px-5">
+          <div>
+            <p class="py-1  bolder">
+              Timezones:<span class="text-gray-400 dark:text-gray-700">
+                {{ country.timezones.length }}</span
+              >
+            </p>
+            <p class="py-1  bolder">
+              Coling code: +<span class="text-gray-400 dark:text-gray-700">{{country.callingCodes[0]}}</span>
+            </p>
+          </div>
+          <div>
+            <p class="py-1  bolder">
+              Area: <span class="text-gray-400 dark:text-gray-700">{{ country.area }}<span class="text-2xl font-medium">&sup2;</span>, km</span>
+            </p>
+            <p class="py-1  bolder">
+              Joined block :<span class="text-gray-400 dark:text-gray-700">
+                {{country.regionalBlocs[0].name }}, {{country.regionalBlocs[0].acronym}}</span
+              >
+            </p>
+          </div>
+       </div>
+       </template>
+    </Modal>
   </div>
 </template>
 <script>
 import axios from "axios";
 import Back from "../components/Back.vue";
+import Modal from "../components/Modal.vue";
 export default {
   name: "info",
   props: ["countries"],
   data() {
     return {
       country: null,
-      borders: []
+      borders: [],
+      isModalOpen: false,
+      loaded: false
     };
   },
-  components: { Back },
+  components: { Back, Modal},
   methods: {},
   activated: function() {
     axios
@@ -104,7 +142,8 @@ export default {
       .then(response => {
         this.country = response.data[0];
         this.borders = response.data[0].borders
-          .sort(() => Math.random() - 0.5)
+          .sort(() => Math.random() - 0.5);
+          this.loaded = true;
       })
       .catch(err => {
         if (err.response.status === 404) {
