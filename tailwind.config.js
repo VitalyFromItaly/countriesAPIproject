@@ -3,7 +3,9 @@ module.exports = {
         // removeDeprecatedGapUtilities: true,
         // purgeLayersByDefault: true,
     },
-    purge: [],
+    purge: ['./src/**/*.vue',
+        './public/index.html'
+    ],
     darkMode: "class",
     theme: {
         extend: {
