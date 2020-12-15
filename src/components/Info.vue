@@ -7,7 +7,7 @@
     >
       <img :src="country.flag" alt="" class=" w-auto shadow-lg" />
       <div id="text-info">
-        <div class="flex justify-between items-start">
+        <div class="flex justify-between items-center md:items-start">
           <h1 class="bolder text-2xl dark:text-white py-5 md:py-0 md:pb-5">
             {{ country.name }}
           </h1>
@@ -86,7 +86,7 @@
         {{ sortedCountryBorder.name }}
       </p>
     </div>
-    <Modal @close="isModalOpen=!isModalOpen" :isModalOpen="isModalOpen" v-if="isModalOpen && loaded">
+    <Modal @close="isModalOpen=!isModalOpen" v-if="isModalOpen && loaded">
        <template v-slot:header>
        Extra info about {{country.name}}
        </template>
