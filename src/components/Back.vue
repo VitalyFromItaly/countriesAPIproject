@@ -1,7 +1,7 @@
 <template>
   <div id="back" class="dark:bg-veryDarkBlue dark:text-gray-400">
  <button
-      @click="$router.push({ name: 'home' })"
+      @click="$router.push({ name: 'home' }), $emit('close')"
       class=" w-32 shadow-2xl  text-md bg-gray-100 dark:bg-darkBlue px-8 py-3 my-10 font-light focus:outline-none text-white flex items-center rounded-md"
     >
       <div class="flex items-center">
