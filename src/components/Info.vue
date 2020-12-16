@@ -11,7 +11,7 @@
           <h1 class="bolder text-2xl dark:text-white py-5 md:py-0 md:pb-5">
             {{ country.name }}
           </h1>
-          <button @click="isModalOpen = !isModalOpen"
+          <button  @click="isModalOpen = !isModalOpen"
           class="text-xl dark:text-white px-4 py-1 hover:bg-gray-300 bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none rounded-lg">
           More info
           </button>
