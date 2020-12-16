@@ -1,6 +1,6 @@
 <template>
   <div id="info" class="px-5 sm:px-10 md:px-20 mb-auto">
-    <Back @close="isModalOpen=!isModalOpen" />
+    <Back @close="isModalOpen=false" />
     <div
       v-if="country"
       class="md:grid md:grid-cols-2 md:gap-x-20 items-start pb-5"
