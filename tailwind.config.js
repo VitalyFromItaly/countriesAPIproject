@@ -3,8 +3,9 @@ module.exports = {
         // removeDeprecatedGapUtilities: true,
         // purgeLayersByDefault: true,
     },
-    purge: ['./src/**/*.vue',
-        './public/index.html'
+    purge: [
+        //'./src/**/*.vue',
+        //'./public/index.html'
     ],
     darkMode: "class",
     theme: {
@@ -16,9 +17,6 @@ module.exports = {
                 //for light background theme
                 'darkGray': 'hsl(0, 0%, 52%)', // for light theme input
                 'veryLightGray': 'hsl(0, 0%, 98%)' // for light theme
-
-
-
             },
             color: {
                 //for light background theme
