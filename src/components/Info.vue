@@ -1,6 +1,45 @@
 <template>
   <div id="info" class="px-5 sm:px-10 md:px-20 mb-auto">
-    <Back @close="isModalOpen=false" />
+    <Back @close="isModalOpen = false" @click="nuls" />
+    <Modal @close="isModalOpen = !isModalOpen" v-if="isModalOpen && loaded" class="flex items-center justify-center">
+      <template v-slot:header> Extra info about {{ country.name }} </template>
+      <template v-slot:body>
+        <div class="grid grid-cols-2 md:gap-x-20 items-baseline px-5">
+          <div>
+            <p class="py-1  bolder">
+              Timezones:<span class="text-gray-400 dark:text-gray-700">
+                {{ country.timezones.length }}</span
+              >
+            </p>
+            <p class="py-1  bolder">
+              Coling code: +<span class="text-gray-400 dark:text-gray-700">{{
+                country.callingCodes[0]
+              }}</span>
+            </p>
+          </div>
+          <div>
+            <p class="py-1  bolder">
+              Area:
+              <span class="text-gray-400 dark:text-gray-700"
+                >{{ country.area
+                }}<span class="text-2xl font-medium">&sup2;</span>, km</span
+              >
+            </p>
+            <p class="py-1  bolder" v-if="country.regionalBlocs[0]">
+              Joined block :<span class="text-gray-400 dark:text-gray-700">
+                {{ country.regionalBlocs[0].name }},
+                {{ country.regionalBlocs[0].acronym }}</span
+              >
+            </p>
+            <p class="py-1  bolder" v-else>
+              Joined block :<span class="text-gray-400 dark:text-gray-700">
+                none</span
+              >
+            </p>
+          </div>
+        </div>
+      </template>
+    </Modal>
     <div
       v-if="country"
       class="md:grid md:grid-cols-2 md:gap-x-20 items-start pb-5"
@@ -88,45 +127,6 @@
         {{ sortedCountryBorder.name }}
       </p>
     </div>
-    <Modal @close="isModalOpen = !isModalOpen" v-if="isModalOpen && loaded">
-      <template v-slot:header> Extra info about {{country.name}} </template>
-      <template v-slot:body>
-        <div class="grid grid-cols-2 md:gap-x-20 items-baseline px-5">
-          <div>
-            <p class="py-1  bolder">
-              Timezones:<span class="text-gray-400 dark:text-gray-700">
-                {{ country.timezones.length }}</span
-              >
-            </p>
-            <p class="py-1  bolder">
-              Coling code: +<span class="text-gray-400 dark:text-gray-700">{{
-                country.callingCodes[0]
-              }}</span>
-            </p>
-          </div>
-          <div>
-            <p class="py-1  bolder">
-              Area:
-              <span class="text-gray-400 dark:text-gray-700"
-                >{{ country.area
-                }}<span class="text-2xl font-medium">&sup2;</span>, km</span
-              >
-            </p>
-            <p class="py-1  bolder" v-if="country.regionalBlocs[0]" >
-              Joined block :<span class="text-gray-400 dark:text-gray-700">
-                {{ country.regionalBlocs[0].name }},
-                {{ country.regionalBlocs[0].acronym }}</span
-              >
-            </p>
-            <p class="py-1  bolder" v-else>
-              Joined block :<span class="text-gray-400 dark:text-gray-700">
-                none</span
-              >
-            </p>
-          </div>
-        </div>
-      </template>
-    </Modal>
   </div>
 </template>
 <script>
@@ -147,7 +147,7 @@ export default {
   components: { Back, Modal },
   methods: {
     nuls() {
-      this.country=null;
+      this.country = null;
     }
   },
   activated: function() {
@@ -163,7 +163,7 @@ export default {
       .catch(err => {
         if (err.response.status === 404) {
           this.$route.push({ name: "not-found" });
-          console.log('activated:', this.country);
+          console.log("activated:", this.country);
         }
       });
   },
