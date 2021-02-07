@@ -49,14 +49,16 @@ export default {
       axios
         .get(`https://restcountries.eu/rest/v2/name/${this.search}`)
         .then(res => {
-          this.searchedCountry = res.data[0];
-          this.searchedCountryBorders = res.data[0].borders
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 3);
-          router.push({
-            name: "info",
-            params: { countryName: this.searchedCountry.name, countryBorders: this.searchedCountryBorders }
-          });
+          if (res.status === 200) {
+            this.searchedCountry = res.data[0];
+            this.searchedCountryBorders = res.data[0].borders
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 3);
+            router.push({
+              name: "info",
+              params: { countryName: this.searchedCountry.name, countryBorders: this.searchedCountryBorders }
+            });
+          }
         })
         .catch(err => {
           if (err.response.status === 404) {

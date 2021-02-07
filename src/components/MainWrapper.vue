@@ -38,8 +38,11 @@ export default {
     axios
       .get("https://restcountries.eu/rest/v2/all") //get all data of countries from API
       .then(
-        response =>
-          (this.countries = response.data.sort(() => Math.random() - 0.5)) // save the data in this.countries
+        response => {
+          if (response.status === 200) {
+            (this.countries = response.data.sort(() => Math.random() - 0.5)) // save the data in this.countries
+          }
+        }
       );
   },
   computed: {
