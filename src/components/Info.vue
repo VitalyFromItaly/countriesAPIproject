@@ -156,9 +156,11 @@ export default {
         `https://restcountries.eu/rest/v2/name/${this.$route.params.countryName}`
       )
       .then(response => {
-        this.country = response.data[0];
-        this.borders = response.data[0].borders.sort(() => Math.random() - 0.5);
-        this.loaded = true;
+        if (response.status === 200) {
+          this.country = response.data[0];
+          this.borders = response.data[0].borders.sort(() => Math.random() - 0.5);
+          this.loaded = true;
+        }
       })
       .catch(err => {
         if (err.response.status === 404) {
